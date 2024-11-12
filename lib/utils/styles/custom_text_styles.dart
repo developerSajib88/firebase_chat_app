@@ -6,6 +6,11 @@ import 'package:google_fonts/google_fonts.dart';
 
 class CustomTextStyles {
 
+  static TextStyle title = GoogleFonts.poppins(
+    fontSize: 11.sp,
+    color: ColorPalates.defaultWhite,
+  );
+
   static TextStyle primary = GoogleFonts.poppins(
       fontSize: 8.sp,
       color: ColorPalates.defaultWhite,
