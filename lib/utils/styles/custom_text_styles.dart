@@ -9,18 +9,18 @@ class CustomTextStyles {
   static TextStyle title = GoogleFonts.poppins(
     fontSize: 11.sp,
     color: ColorPalates.defaultWhite,
-    fontWeight: FontWeight.bold
+    fontWeight: FontWeight.w600
   );
 
   static TextStyle primary = GoogleFonts.poppins(
-      fontSize: 8.sp,
+      fontSize: 7.5.sp,
       color: ColorPalates.defaultWhite,
-      fontWeight: FontWeight.w600
+      fontWeight: FontWeight.w400
   );
 
   static TextStyle secondary = GoogleFonts.poppins(
       fontSize: 6.sp,
-      color: ColorPalates.defaultWhite,
+      color: ColorPalates.defaultGrey,
   );
 
 }

@@ -13,6 +13,7 @@ class ChatApp extends HookConsumerWidget {
       splitScreenMode: true,
       minTextAdapt: true,
       builder: (BuildContext context, Widget? child)=>const MaterialApp(
+        debugShowCheckedModeBanner: false,
         home: DashboardScreen(),
       ),
       // builder: (BuildContext context, Widget? child) => MaterialApp.router(
