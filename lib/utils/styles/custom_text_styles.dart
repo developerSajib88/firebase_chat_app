@@ -9,6 +9,7 @@ class CustomTextStyles {
   static TextStyle title = GoogleFonts.poppins(
     fontSize: 11.sp,
     color: ColorPalates.defaultWhite,
+    fontWeight: FontWeight.bold
   );
 
   static TextStyle primary = GoogleFonts.poppins(
