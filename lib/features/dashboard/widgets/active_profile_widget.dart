@@ -1,4 +1,5 @@
 import 'package:feature_first/common/widgets/profile_widget.dart';
+import 'package:feature_first/features/chat/presentation/chat_screen.dart';
 import 'package:feature_first/utils/constants/ui_constants.dart';
 import 'package:feature_first/utils/styles/custom_text_styles.dart';
 import 'package:flutter/material.dart';
@@ -16,20 +17,23 @@ class ActiveProfileWidget extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           itemBuilder: (context,index)=> Padding(
             padding: paddingRight8,
-            child: Column(
-              children: [
-
-                const ProfileWidget(),
-
-                gap4,
-
-                Text(
-                  "Perez",
-                  style: CustomTextStyles.secondary.copyWith(
-                    fontWeight: FontWeight.normal
-                  ),
-                )
-              ],
+            child: InkWell(
+              onTap: ()=> Navigator.push(context,MaterialPageRoute(builder: (context)=> const ChatScreen())),
+              child: Column(
+                children: [
+              
+                  const ProfileWidget(),
+              
+                  gap4,
+              
+                  Text(
+                    "Perez",
+                    style: CustomTextStyles.secondary.copyWith(
+                      fontWeight: FontWeight.normal
+                    ),
+                  )
+                ],
+              ),
             ),
           )
       ),
