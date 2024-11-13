@@ -10,7 +10,7 @@ class ColorPalates {
   static Color get primary => const Color(0xff292F3F);
 
   static Color get darkGrey => const Color(0xff373E4E);
-  static Color get lightGrey => const Color(0xff7A8194);
+  static Color get lightGrey => const Color(0xff6d717c);
 
   ///Default Colors
   static Color get defaultWhite => Colors.white;

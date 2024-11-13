@@ -1,5 +1,5 @@
 import 'package:feature_first/features/dashboard/widgets/active_profile_widget.dart';
-import 'package:feature_first/features/dashboard/widgets/profile_list_widget.dart';
+import 'package:feature_first/features/dashboard/presentation/chat_profile_list.dart';
 import 'package:feature_first/generated/assets.dart';
 import 'package:feature_first/utils/constants/ui_constants.dart';
 import 'package:feature_first/utils/styles/color_palates.dart';
@@ -36,10 +36,13 @@ class DashboardScreen extends HookConsumerWidget {
                           style: CustomTextStyles.title,
                         ),
 
-                        Image.asset(
-                          Assets.iconsSearch,
-                          width: 14.w,
-                          height: 14.w,
+                        InkWell(
+                          onTap: (){},
+                          child: Image.asset(
+                            Assets.iconsSearch,
+                            width: 14.w,
+                            height: 14.w,
+                          ),
                         )
 
                       ],
@@ -77,8 +80,8 @@ class DashboardScreen extends HookConsumerWidget {
                             topRight: Radius.circular(25.r),
                           )
                       ),
-                      padding: EdgeInsets.fromLTRB(12.w, 0, 12.w, 0),
-                      child: const ProfileListWidget()
+                      padding: EdgeInsets.fromLTRB(6.w, 0, 6.w, 0),
+                      child: const ChatProfileList()
                   ),
               )
 
