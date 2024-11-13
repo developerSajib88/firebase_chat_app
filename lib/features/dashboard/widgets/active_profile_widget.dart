@@ -17,7 +17,7 @@ class ActiveProfileWidget extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           itemBuilder: (context,index)=> Padding(
             padding: paddingRight8,
-            child: InkWell(
+            child: GestureDetector(
               onTap: ()=> Navigator.push(context,MaterialPageRoute(builder: (context)=> const ChatScreen())),
               child: Column(
                 children: [
