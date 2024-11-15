@@ -1,4 +1,5 @@
 import 'package:feature_first/app/app.dart';
+import 'package:feature_first/common/widgets/buttons/primary_button.dart';
 import 'package:feature_first/common/widgets/text_form_fields/input_border.dart';
 import 'package:feature_first/common/widgets/text_form_fields/primary_text_form_fields.dart';
 import 'package:feature_first/utils/constants/ui_constants.dart';
@@ -19,7 +20,7 @@ class RegistrationScreen extends HookConsumerWidget {
       body: Container(
         width: 1.sw,
         height: 1.sh,
-        padding: padding6,
+        padding: padding12,
         child: Column(
           crossAxisAlignment: crossCenter,
           mainAxisAlignment: mainCenter,
@@ -52,11 +53,39 @@ class RegistrationScreen extends HookConsumerWidget {
 
             gap12,
 
-            PrimaryTextFormFields(),
+            const PrimaryTextFormFields(
+              title: "Full Name",
+              hint: "Enter your full name",
+            ),
 
             gap6,
 
-            PrimaryTextFormFields(),
+            const PrimaryTextFormFields(
+              title: "Email",
+              hint: "Enter your email",
+            ),
+
+
+            gap6,
+
+
+            const PrimaryTextFormFields(
+              title: "Password",
+              hint: "******",
+              showObSecure: false,
+            ),
+
+            gap6,
+
+            const PrimaryTextFormFields(
+              title: "Confirm Password",
+              hint: "******",
+              showObSecure: false,
+            ),
+
+            gap12,
+
+            const PrimaryButton()
 
 
 
