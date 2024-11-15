@@ -1,3 +1,4 @@
+import 'package:feature_first/features/authentications/presentation/user_registration/registration_screen.dart';
 import 'package:feature_first/features/dashboard/presentation/dashboard_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,7 +15,7 @@ class ChatApp extends HookConsumerWidget {
       minTextAdapt: true,
       builder: (BuildContext context, Widget? child)=>const MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: DashboardScreen(),
+        home: RegistrationScreen(),
       ),
       // builder: (BuildContext context, Widget? child) => MaterialApp.router(
       //   title: "Feature-First",
