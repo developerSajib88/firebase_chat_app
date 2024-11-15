@@ -5,7 +5,21 @@ import 'package:feature_first/utils/styles/custom_text_styles.dart';
 import 'package:flutter/material.dart';
 
 class PrimaryTextFormFields extends StatelessWidget {
-  const PrimaryTextFormFields({super.key});
+  final String title;
+  final String hint;
+  final bool? showObSecure;
+  final TextInputType? keyboardType;
+  final String? Function(String?)? validator;
+
+  const PrimaryTextFormFields({
+    super.key,
+    this.showObSecure,
+    this.validator,
+    this.keyboardType,
+    required this.title,
+    required this.hint,
+
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +28,7 @@ class PrimaryTextFormFields extends StatelessWidget {
       children: [
 
         Text(
-          'Full Name *',
+          "$title *",
           style: CustomTextStyles.secondary,
         ),
 
@@ -22,15 +36,23 @@ class PrimaryTextFormFields extends StatelessWidget {
 
         TextFormField(
           style: CustomTextStyles.secondary,
+          obscureText: showObSecure ?? false,
           decoration: InputDecoration(
             filled: true,
             fillColor: ColorPalates.darkGrey,
-            hintText: "Enter your name",
-            hintStyle: CustomTextStyles.secondary,
+            hintText: hint,
+            hintStyle: CustomTextStyles.secondary.copyWith(color: ColorPalates.lightGrey),
             focusedBorder: primaryInputBorder,
             enabledBorder: primaryInputBorder,
             border: primaryInputBorder,
+            suffixIcon: showObSecure != null ? Icon(
+             showObSecure ?? false ?
+             Icons.visibility_outlined
+                 : Icons.visibility_off_outlined,
+              color: ColorPalates.primary,
+             ): null
           ),
+          validator: validator,
         ),
       ],
     );
