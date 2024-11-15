@@ -5,12 +5,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class PrimaryButton extends StatelessWidget {
-  const PrimaryButton({super.key});
+  final bool? isLoading;
+  final String text;
+  final VoidCallback onPressed;
+  const PrimaryButton({
+    super.key,
+    this.isLoading,
+    required this.text,
+    required this.onPressed,
+  });
 
   @override
   Widget build(BuildContext context) {
     return InkResponse(
-      onTap: (){},
+      onTap: onPressed,
       splashColor: Colors.green,
       highlightColor: Colors.transparent,
       child: Container(
@@ -21,12 +29,11 @@ class PrimaryButton extends StatelessWidget {
           color: ColorPalates.primary,
           borderRadius: radius4,
         ),
-        child: 1 == 1 ?
+        child: isLoading ?? true ?
         Text(
-          "Create Account",
+          text,
           style: CustomTextStyles.primary,
-        )
-            :SizedBox(
+        ) :SizedBox(
           width: 15.w,
           height: 15.w,
           child: const CircularProgressIndicator(

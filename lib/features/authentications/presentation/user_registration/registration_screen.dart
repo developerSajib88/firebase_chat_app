@@ -87,7 +87,10 @@ class RegistrationScreen extends HookConsumerWidget {
           
               gap12,
           
-              const PrimaryButton(),
+              PrimaryButton(
+                text: "Create Account",
+                onPressed: (){},
+              ),
           
               SpanButton(
                   title: "Do you have already account",
