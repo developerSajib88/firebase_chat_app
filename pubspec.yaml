@@ -64,6 +64,7 @@ dependencies:
 
   # Font Awesome Icons
   font_awesome_flutter: ^10.8.0
+  cloud_firestore: ^5.5.0
 
 
 
