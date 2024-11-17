@@ -7,7 +7,7 @@ import 'package:feature_first/data/model/user/user.dart';
 
 class FirebaseServices {
 
-  Future<UserModel?> createAccount({
+  static Future<UserModel?> createAccount({
     required String fullName,
     required String email,
     required String password,
@@ -45,7 +45,7 @@ class FirebaseServices {
     }
   }
 
-  Future<UserModel?> login({
+  static Future<UserModel?> login({
     required String email,
     required String password,
   }) async {
