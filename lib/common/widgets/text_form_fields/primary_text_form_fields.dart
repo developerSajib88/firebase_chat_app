@@ -9,6 +9,7 @@ class PrimaryTextFormFields extends StatelessWidget {
   final String hint;
   final bool? showObSecure;
   final TextInputType? keyboardType;
+  final TextEditingController? controller;
   final String? Function(String?)? validator;
 
   const PrimaryTextFormFields({
@@ -16,9 +17,9 @@ class PrimaryTextFormFields extends StatelessWidget {
     this.showObSecure,
     this.validator,
     this.keyboardType,
+    this.controller,
     required this.title,
     required this.hint,
-
   });
 
   @override
@@ -35,6 +36,7 @@ class PrimaryTextFormFields extends StatelessWidget {
         gap2,
 
         TextFormField(
+          controller: controller,
           style: CustomTextStyles.secondary,
           obscureText: showObSecure ?? false,
           decoration: InputDecoration(

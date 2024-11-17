@@ -1,6 +1,10 @@
+import 'package:feature_first/common/global/validation/forms_validation.dart';
 import 'package:feature_first/common/widgets/buttons/primary_button.dart';
 import 'package:feature_first/common/widgets/buttons/span_button.dart';
 import 'package:feature_first/common/widgets/text_form_fields/primary_text_form_fields.dart';
+import 'package:feature_first/core/dependency_injection/dependency_injection.dart';
+import 'package:feature_first/features/authentications/presentation/log_in/log_in_screen.dart';
+import 'package:feature_first/features/dashboard/presentation/dashboard_screen.dart';
 import 'package:feature_first/utils/constants/ui_constants.dart';
 import 'package:feature_first/utils/styles/color_palates.dart';
 import 'package:feature_first/utils/styles/custom_text_styles.dart';
@@ -14,6 +18,12 @@ class RegistrationScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+
+    final authenticationState = ref.watch(authenticationProvider);
+    final authenticationCtrl = ref.read(authenticationProvider.notifier);
+
+    GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
     return Scaffold(
       backgroundColor: ColorPalates.background,
       body: Container(
@@ -55,47 +65,84 @@ class RegistrationScreen extends HookConsumerWidget {
           
               gap12,
           
-              const PrimaryTextFormFields(
-                title: "Full Name",
-                hint: "Enter your full name",
-              ),
-          
-              gap6,
-          
-              const PrimaryTextFormFields(
-                title: "Email",
-                hint: "Enter your email",
-              ),
-          
-          
-              gap6,
-          
-          
-              const PrimaryTextFormFields(
-                title: "Password",
-                hint: "******",
-                showObSecure: false,
-              ),
-          
-              gap6,
-          
-              const PrimaryTextFormFields(
-                title: "Confirm Password",
-                hint: "******",
-                showObSecure: false,
+              Form(
+                key: formKey,
+                child: Column(
+                  children: [
+
+                    PrimaryTextFormFields(
+                      controller: authenticationState.nameController,
+                      title: "Full Name",
+                      hint: "Enter your full name",
+                      validator: (value)=> FormValidation(
+                        formValue: authenticationState.nameController.text,
+                        validationType: ValidationType.name
+                      ).validate(),
+                    ),
+
+                    gap6,
+
+                    PrimaryTextFormFields(
+                      controller: authenticationState.emailController,
+                      title: "Email",
+                      hint: "Enter your email",
+                      validator: (value)=> FormValidation(
+                         formValue: authenticationState.emailController.text,
+                         validationType: ValidationType.email
+                      ).validate()
+                    ),
+
+
+                    gap6,
+
+
+                    PrimaryTextFormFields(
+                      controller: authenticationState.passwordController,
+                      title: "Password",
+                      hint: "******",
+                      showObSecure: false,
+                      validator: (value)=> FormValidation(
+                        formValue: authenticationState.passwordController.text,
+                        validationType: ValidationType.password
+                      ).validate(),
+                    ),
+
+                    gap6,
+
+                    PrimaryTextFormFields(
+                      title: "Confirm Password",
+                      hint: "******",
+                      showObSecure: false,
+                      validator: (value){
+                        if(authenticationState.passwordController.text != value) {
+                          return "Confirm password does't not match";
+                        }else{
+                         return null;
+                        }
+                      },
+                    ),
+                  ],
+                ),
               ),
           
               gap12,
           
               PrimaryButton(
                 text: "Create Account",
-                onPressed: (){},
+                isLoading: authenticationState.isLoading,
+                onPressed: ()async{
+                  if(formKey.currentState!.validate()){
+                    await authenticationCtrl.createAccount().then((value){
+                      if(value) Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const DashboardScreen()));
+                    });
+                  }
+                },
               ),
           
               SpanButton(
                   title: "Do you have already account",
                   buttonText: "Log In",
-                  onPressed: (){}
+                  onPressed: ()=> Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const LogInScreen()))
               )
           
           
