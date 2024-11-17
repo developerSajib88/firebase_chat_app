@@ -9,14 +9,16 @@ class AuthenticationStateNotifier extends StateNotifier<AuthenticationState>{
 
   stateMaker(AuthenticationState newState) => state = newState;
 
-  Future<void> createAccount()async{
+  Future<bool> createAccount()async{
     stateMaker(state.copyWith(isLoading: true));
+    bool success = false;
     await authenticationDom.createAccount(
         fullName: state.nameController.text,
         email: state.emailController.text,
         password: state.passwordController.text
     ).then((value){
       if(value != null){
+        success = true;
         stateMaker(
           state.copyWith(
             isLoading: false,
@@ -26,16 +28,19 @@ class AuthenticationStateNotifier extends StateNotifier<AuthenticationState>{
       }
     });
     stateMaker(state.copyWith(isLoading: false));
+    return success;
   }
 
 
-  Future<void> logInAccount()async{
+  Future<bool> logInAccount()async{
     stateMaker(state.copyWith(isLoading: true));
+    bool success = false;
     await authenticationDom.logInAccount(
         email: state.emailController.text,
         password: state.passwordController.text
     ).then((value){
       if(value != null){
+        success = true;
         stateMaker(
             state.copyWith(
                 isLoading: false,
@@ -45,6 +50,7 @@ class AuthenticationStateNotifier extends StateNotifier<AuthenticationState>{
       }
     });
     stateMaker(state.copyWith(isLoading: false));
+    return success;
   }
 
 }
