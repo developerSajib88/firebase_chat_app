@@ -1,6 +1,10 @@
+import 'package:feature_first/common/global/validation/forms_validation.dart';
 import 'package:feature_first/common/widgets/buttons/primary_button.dart';
 import 'package:feature_first/common/widgets/buttons/span_button.dart';
 import 'package:feature_first/common/widgets/text_form_fields/primary_text_form_fields.dart';
+import 'package:feature_first/core/dependency_injection/dependency_injection.dart';
+import 'package:feature_first/features/authentications/presentation/user_registration/registration_screen.dart';
+import 'package:feature_first/features/dashboard/presentation/dashboard_screen.dart';
 import 'package:feature_first/utils/constants/ui_constants.dart';
 import 'package:feature_first/utils/styles/color_palates.dart';
 import 'package:feature_first/utils/styles/custom_text_styles.dart';
@@ -14,6 +18,12 @@ class LogInScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+
+    final authenticationState = ref.watch(authenticationProvider);
+    final authenticationCtrl = ref.read(authenticationProvider.notifier);
+
+    GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
     return Scaffold(
       backgroundColor: ColorPalates.background,
       body: Container(
@@ -56,19 +66,35 @@ class LogInScreen extends HookConsumerWidget {
               gap12,
 
 
-              const PrimaryTextFormFields(
-                title: "Email",
-                hint: "Enter your email",
-              ),
+              Form(
+                key: formKey,
+                child: Column(
+                  children: [
+
+                    PrimaryTextFormFields(
+                      title: "Email",
+                      hint: "Enter your email",
+                      validator: (value)=> FormValidation(
+                        formValue: authenticationState.emailController.text,
+                        validationType: ValidationType.email
+                      ).validate(),
+                    ),
 
 
-              gap6,
+                    gap6,
 
 
-              const PrimaryTextFormFields(
-                title: "Password",
-                hint: "******",
-                showObSecure: false,
+                    PrimaryTextFormFields(
+                      title: "Password",
+                      hint: "******",
+                      showObSecure: false,
+                      validator: (value)=> FormValidation(
+                        formValue: authenticationState.passwordController.text,
+                        validationType: ValidationType.password
+                      ).validate(),
+                    ),
+                  ],
+                ),
               ),
 
 
@@ -77,13 +103,19 @@ class LogInScreen extends HookConsumerWidget {
 
               PrimaryButton(
                 text: "Sign In",
-                onPressed: (){},
+                onPressed: ()async{
+                  if(formKey.currentState!.validate()){
+                    if(await authenticationCtrl.logInAccount()){
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const DashboardScreen()));
+                    }
+                  }
+                },
               ),
 
               SpanButton(
                   title: "Don't you have account",
                   buttonText: "Create Account",
-                  onPressed: (){}
+                  onPressed: ()=> Navigator.push(context,MaterialPageRoute(builder: (context)=> const RegistrationScreen()))
               )
 
 
