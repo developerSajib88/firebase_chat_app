@@ -26,7 +26,11 @@ class AuthenticationState extends Equatable{
 
   @override
   List<Object?> get props => [
-    isLoading
+    isLoading,
+    userModel,
+    nameController,
+    emailController,
+    passwordController
   ];
 
   AuthenticationState copyWith({

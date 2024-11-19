@@ -103,6 +103,7 @@ class LogInScreen extends HookConsumerWidget {
 
               PrimaryButton(
                 text: "Sign In",
+                isLoading: authenticationState.isLoading,
                 onPressed: ()async{
                   if(formKey.currentState!.validate()){
                     if(await authenticationCtrl.logInAccount()){
