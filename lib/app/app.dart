@@ -14,7 +14,7 @@ class ChatApp extends HookConsumerWidget {
       designSize: const Size(187.5,406),
       splitScreenMode: true,
       minTextAdapt: true,
-      builder: (BuildContext context, Widget? child)=>const MaterialApp(
+      builder: (BuildContext context, Widget? child)=> const MaterialApp(
         debugShowCheckedModeBanner: false,
         home: LogInScreen(),
       ),
