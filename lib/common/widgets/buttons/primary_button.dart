@@ -29,17 +29,17 @@ class PrimaryButton extends StatelessWidget {
           color: ColorPalates.primary,
           borderRadius: radius4,
         ),
-        child: isLoading ?? true ?
-        Text(
-          text,
-          style: CustomTextStyles.primary,
-        ) :SizedBox(
+        child: isLoading ?? false ?
+        SizedBox(
           width: 15.w,
           height: 15.w,
           child: const CircularProgressIndicator(
             color: Colors.white,
           ),
-        ),
+        ) :Text(
+          text,
+          style: CustomTextStyles.primary,
+        )
 
       ),
     );
