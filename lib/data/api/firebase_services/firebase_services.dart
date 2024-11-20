@@ -77,4 +77,23 @@ class FirebaseServices {
   }
 
 
+  static Future<List<UserModel>?> getAllUsers() async {
+    try {
+      // Reference to the 'users' collection
+      final querySnapshot = await FirebaseCollections.users.get();
+
+      // Convert the documents into a list of maps
+      List<UserModel>? users = querySnapshot.docs.map((doc) {
+        return UserModel.fromJson(doc.data() as Map<String,dynamic>);
+      }).toList();
+
+      return users; // Return the list of users
+    } catch (e) {
+      print("Error fetching users: $e");
+      return []; // Return an empty list on error
+    }
+  }
+
+
+
 }
