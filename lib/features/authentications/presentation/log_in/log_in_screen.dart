@@ -72,6 +72,7 @@ class LogInScreen extends HookConsumerWidget {
                   children: [
 
                     PrimaryTextFormFields(
+                      controller: authenticationState.emailController,
                       title: "Email",
                       hint: "Enter your email",
                       validator: (value)=> FormValidation(
@@ -85,6 +86,7 @@ class LogInScreen extends HookConsumerWidget {
 
 
                     PrimaryTextFormFields(
+                      controller: authenticationState.passwordController,
                       title: "Password",
                       hint: "******",
                       showObSecure: false,
