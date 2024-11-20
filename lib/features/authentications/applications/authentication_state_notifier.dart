@@ -5,7 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 class AuthenticationStateNotifier extends StateNotifier<AuthenticationState>{
 
   final AuthenticationDom authenticationDom;
-  AuthenticationStateNotifier(this.authenticationDom):super(AuthenticationState.init());
+  AuthenticationStateNotifier({required this.authenticationDom}):super(AuthenticationState.init());
 
   stateMaker(AuthenticationState newState) => state = newState;
 
