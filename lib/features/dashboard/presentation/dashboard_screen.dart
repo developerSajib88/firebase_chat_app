@@ -1,4 +1,4 @@
-import 'package:feature_first/common/widgets/app_bar/dashboard_app_bar.dart';
+import 'package:feature_first/features/dashboard/widgets/app_bar/dashboard_app_bar.dart';
 import 'package:feature_first/common/widgets/profile_widget.dart';
 import 'package:feature_first/features/dashboard/widgets/active_profile_widget.dart';
 import 'package:feature_first/features/dashboard/presentation/chat_profile_list.dart';

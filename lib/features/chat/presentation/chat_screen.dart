@@ -1,5 +1,5 @@
 import 'package:feature_first/app/app.dart';
-import 'package:feature_first/common/widgets/app_bar/chat_app_bar.dart';
+import 'package:feature_first/features/chat/widget/app_bar/chat_app_bar.dart';
 import 'package:feature_first/generated/assets.dart';
 import 'package:feature_first/utils/constants/ui_constants.dart';
 import 'package:feature_first/utils/styles/color_palates.dart';
