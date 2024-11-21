@@ -1,3 +1,5 @@
+import 'package:feature_first/common/widgets/app_bar/dashboard_app_bar.dart';
+import 'package:feature_first/common/widgets/profile_widget.dart';
 import 'package:feature_first/features/dashboard/widgets/active_profile_widget.dart';
 import 'package:feature_first/features/dashboard/presentation/chat_profile_list.dart';
 import 'package:feature_first/generated/assets.dart';
@@ -28,28 +30,14 @@ class DashboardScreen extends HookConsumerWidget {
                   crossAxisAlignment: crossStart,
                   children: [
 
-                    Row(
-                      mainAxisAlignment: mainSpaceBetween,
-                      children: [
-                        Text(
-                          "Messages",
-                          style: CustomTextStyles.title,
-                        ),
 
-                        InkWell(
-                          onTap: (){},
-                          child: Image.asset(
-                            Assets.iconsSearch,
-                            width: 14.w,
-                            height: 14.w,
-                          ),
-                        )
-
-                      ],
+                    DashboardAppBar(
+                        name: "Sajib",
+                        image: null
                     ),
 
 
-                    gap6,
+                    gap12,
 
                     Text(
                       "RECENT",
