@@ -21,7 +21,7 @@ class ActiveProfileWidget extends HookConsumerWidget {
     return SizedBox(
       height: 60.h,
       child: ListView.builder(
-          itemCount: 5,
+          itemCount: dashboardState.users?.length,
           scrollDirection: Axis.horizontal,
           itemBuilder: (context,index)=> Padding(
             padding: paddingRight8,
