@@ -39,6 +39,7 @@ dependencies:
   # Firebase
   firebase_core: ^3.1.1
   firebase_messaging: ^15.0.2
+  cloud_firestore: ^5.5.0
 
   # Push Notification
   awesome_notifications: any
@@ -63,7 +64,12 @@ dependencies:
 
   # Font Awesome Icons
   font_awesome_flutter: ^10.8.0
-  cloud_firestore: ^5.5.0
+
+  # Crop Image
+  image_cropper: ^8.0.2
+
+  # Pick Image
+  image_picker: ^1.1.2
 
 
 
@@ -81,33 +87,3 @@ flutter:
     - assets/images/
 
   uses-material-design: true
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
