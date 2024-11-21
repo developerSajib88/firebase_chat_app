@@ -1,3 +1,4 @@
+import 'package:feature_first/common/global/functions/global_functions.dart';
 import 'package:feature_first/generated/assets.dart';
 import 'package:feature_first/utils/constants/ui_constants.dart';
 import 'package:feature_first/utils/styles/color_palates.dart';
@@ -26,31 +27,34 @@ class DashboardAppBar extends StatelessWidget implements PreferredSizeWidget{
         Row(
           children: [
 
-            Stack(
-              alignment: Alignment.bottomRight,
-              children: [
-                CircleAvatar(
-                  radius: 15.r,
-                  backgroundColor: ColorPalates.primary,
-                  child: image != null ?
+            InkResponse(
+              onTap: ()=> GlobalFunctions.pickProfileImage(),
+              child: Stack(
+                alignment: Alignment.bottomRight,
+                children: [
                   CircleAvatar(
-                      radius: 12.r,
-                      backgroundImage:  NetworkImage(
-                        image ?? "",
-                      )
-                  )
-                  : Text(
-                    name[0].toUpperCase(),
-                    style: CustomTextStyles.title,
-                  )
-                ),
+                    radius: 15.r,
+                    backgroundColor: ColorPalates.primary,
+                    child: image != null ?
+                    CircleAvatar(
+                        radius: 12.r,
+                        backgroundImage:  NetworkImage(
+                          image ?? "",
+                        )
+                    )
+                    : Text(
+                      name[0].toUpperCase(),
+                      style: CustomTextStyles.title,
+                    )
+                  ),
 
-                CircleAvatar(
-                  radius: 5.r,
-                  child: Icon(Icons.edit,size: 7.sp,),
-                )
+                  CircleAvatar(
+                    radius: 5.r,
+                    child: Icon(Icons.edit,size: 7.sp,),
+                  )
 
-              ],
+                ],
+              ),
             ),
 
             gap6,
