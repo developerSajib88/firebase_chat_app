@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:feature_first/common/global/functions/global_functions.dart';
+import 'package:feature_first/data/api/firebase_services/firebase_services.dart';
 import 'package:feature_first/data/model/user/user.dart';
 import 'package:feature_first/features/authentications/applications/authentication_state.dart';
 import 'package:feature_first/features/authentications/domain/authentication_domain.dart';
@@ -64,18 +66,28 @@ class AuthenticationStateNotifier extends StateNotifier<AuthenticationState>{
   }
 
 
-  Future updateProfilePicture({required String image})async{
+  Future updateProfilePicture({required File imageFile})async{
+
     stateMaker(state.copyWith(isLoading: true));
-    Map<String,dynamic> body = {"profileImage" : image};
-    await authenticationDom.updateProfile(
-        userId: state.userModel?.userId ?? "",
-        body: body
-    ).then((user){
-      if(user != null){
-        stateMaker(state.copyWith(userModel: user));
+    await FirebaseServices.uploadProfilePicture(
+        imageFile,
+        state.userModel?.userId ?? ""
+    ).then((image)async{
+
+      if(image != null){
+        Map<String,dynamic> body = {"profileImage" : image};
+        await authenticationDom.updateProfile(
+            userId: state.userModel?.userId ?? "",
+            body: body
+        ).then((user){
+          if(user != null){
+            stateMaker(state.copyWith(userModel: user));
+          }
+        });
       }
     });
     stateMaker(state.copyWith(isLoading: false));
+
   }
 
 

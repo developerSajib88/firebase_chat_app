@@ -1,25 +1,35 @@
 import 'package:feature_first/common/global/functions/global_functions.dart';
+import 'package:feature_first/core/dependency_injection/dependency_injection.dart';
 import 'package:feature_first/generated/assets.dart';
 import 'package:feature_first/utils/constants/ui_constants.dart';
 import 'package:feature_first/utils/styles/color_palates.dart';
 import 'package:feature_first/utils/styles/custom_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class DashboardAppBar extends StatelessWidget implements PreferredSizeWidget{
-  final String name;
-  final String? image;
+class DashboardAppBar extends HookConsumerWidget implements PreferredSizeWidget{
   const DashboardAppBar({
     super.key,
-    required this.name,
-    required this.image
   });
 
   @override
   Size get preferredSize => AppBar().preferredSize;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+
+    final authenticationState = ref.watch(authenticationProvider);
+    final authenticationCtrl = ref.watch(authenticationProvider.notifier);
+
+    Future updateProfilePicture()async{
+      GlobalFunctions.pickProfileImage().then((file){
+        if(file != null){
+          authenticationCtrl.updateProfilePicture(imageFile: file);
+        }
+      });
+    }
+
     return Row(
       mainAxisAlignment: mainSpaceBetween,
       children: [
@@ -28,22 +38,22 @@ class DashboardAppBar extends StatelessWidget implements PreferredSizeWidget{
           children: [
 
             InkResponse(
-              onTap: ()=> GlobalFunctions.pickProfileImage(),
+              onTap: ()=> updateProfilePicture(),
               child: Stack(
                 alignment: Alignment.bottomRight,
                 children: [
                   CircleAvatar(
                     radius: 15.r,
                     backgroundColor: ColorPalates.primary,
-                    child: image != null ?
+                    child: authenticationState.userModel != null ?
                     CircleAvatar(
                         radius: 12.r,
                         backgroundImage:  NetworkImage(
-                          image ?? "",
+                          authenticationState.userModel?.profileImage ?? "",
                         )
                     )
                     : Text(
-                      name[0].toUpperCase(),
+                      authenticationState.userModel!.fullName![0].toUpperCase(),
                       style: CustomTextStyles.title,
                     )
                   ),
@@ -63,7 +73,7 @@ class DashboardAppBar extends StatelessWidget implements PreferredSizeWidget{
               crossAxisAlignment: crossStart,
               children: [
                 Text(
-                  "Sajib Hasan",
+                  authenticationState.userModel!.fullName!,
                   style: CustomTextStyles.primary,
                 )
               ],

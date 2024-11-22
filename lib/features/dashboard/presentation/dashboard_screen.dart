@@ -31,10 +31,7 @@ class DashboardScreen extends HookConsumerWidget {
                   children: [
 
 
-                    DashboardAppBar(
-                        name: "Sajib",
-                        image: null
-                    ),
+                    const DashboardAppBar(),
 
 
                     gap12,
