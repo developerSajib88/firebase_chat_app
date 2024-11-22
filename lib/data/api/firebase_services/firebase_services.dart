@@ -8,17 +8,15 @@ import 'package:feature_first/data/model/user/user.dart';
 class FirebaseServices {
 
   static Future<UserModel?> createAccount({
-    required String fullName,
-    required String email,
-    required String password,
+    required Map<String,dynamic> body
   }) async {
     try {
       // Hash the password for security
-      String hashedPassword = sha256.convert(utf8.encode(password)).toString();
+      String hashedPassword = sha256.convert(utf8.encode(body["password"])).toString();
 
       // Check if an account with the email already exists
       final querySnapshot = await FirebaseCollections.users
-          .where('email', isEqualTo: email)
+          .where('email', isEqualTo: body["email"])
           .get();
 
       if (querySnapshot.docs.isNotEmpty) {
@@ -26,12 +24,7 @@ class FirebaseServices {
       }
 
       // Store user data in Firestore and get the document ID
-      final userRef = await FirebaseCollections.users.add({
-        'fullName': fullName,
-        'email': email,
-        'password': hashedPassword, // Store the hashed password
-        'createdAt': FieldValue.serverTimestamp(),
-      });
+      final userRef = await FirebaseCollections.users.add(body);
 
       // Fetch the newly created user data
       final userDoc = await userRef.get();
