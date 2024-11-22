@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:feature_first/utils/styles/color_palates.dart';
 import 'package:flutter/material.dart';
@@ -7,8 +8,12 @@ import 'package:image_picker/image_picker.dart';
 
 class GlobalFunctions {
 
+  static int generateRandomUserId() {
+    return 100000 + Random().nextInt(900000);
+  }
+
+
   static Future<File?> pickProfileImage()async{
-    print("Hi>>>>>>>>>>>>>>>>>>");
     XFile? image = await ImagePicker().pickImage(source: ImageSource.gallery);
     if(image != null){
       CroppedFile? cropImage = await ImageCropper().cropImage(
