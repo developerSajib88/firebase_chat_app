@@ -12,4 +12,8 @@ class AuthenticationDomI implements AuthenticationDom{
   Future<UserModel?> logInAccount({required email, required password}) async =>
       await FirebaseServices.login(email: email, password: password);
 
+  @override
+  Future<UserModel?> updateProfile({required String userId, required Map<String, dynamic> body}) async =>
+      await FirebaseServices.updateUserProfile(userId: userId, body: body);
+
 }

@@ -14,8 +14,6 @@ class FirebaseServices {
     required Map<String,dynamic> body
   }) async {
     try {
-      // Hash the password for security
-      String hashedPassword = sha256.convert(utf8.encode(body["password"])).toString();
 
       // Check if an account with the email already exists
       final querySnapshot = await FirebaseCollections.users

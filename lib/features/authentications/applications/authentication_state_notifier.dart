@@ -1,8 +1,12 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:feature_first/common/global/functions/global_functions.dart';
+import 'package:feature_first/data/model/user/user.dart';
 import 'package:feature_first/features/authentications/applications/authentication_state.dart';
 import 'package:feature_first/features/authentications/domain/authentication_domain.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:crypto/crypto.dart';
 
 class AuthenticationStateNotifier extends StateNotifier<AuthenticationState>{
 
@@ -19,7 +23,7 @@ class AuthenticationStateNotifier extends StateNotifier<AuthenticationState>{
         "userId": GlobalFunctions.generateRandomUserId(),
         "fullName": state.nameController.text,
         "email": state.emailController.text,
-        "password": state.passwordController.text,
+        "password": sha256.convert(utf8.encode(state.passwordController.text)).toString(),
         "createdAt": FieldValue.serverTimestamp(),
       }
     ).then((value){
@@ -58,5 +62,22 @@ class AuthenticationStateNotifier extends StateNotifier<AuthenticationState>{
     stateMaker(state.copyWith(isLoading: false));
     return success;
   }
+
+
+  Future updateProfilePicture({required String image})async{
+    stateMaker(state.copyWith(isLoading: true));
+    Map<String,dynamic> body = {"profileImage" : image};
+    await authenticationDom.updateProfile(
+        userId: state.userModel?.userId ?? "",
+        body: body
+    ).then((user){
+      if(user != null){
+        stateMaker(state.copyWith(userModel: user));
+      }
+    });
+    stateMaker(state.copyWith(isLoading: false));
+  }
+
+
 
 }
