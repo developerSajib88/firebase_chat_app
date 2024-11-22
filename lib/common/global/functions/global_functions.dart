@@ -8,8 +8,8 @@ import 'package:image_picker/image_picker.dart';
 
 class GlobalFunctions {
 
-  static int generateRandomUserId() {
-    return 100000 + Random().nextInt(900000);
+  static String generateRandomUserId() {
+    return (100000 + Random().nextInt(900000)).toString();
   }
 
 

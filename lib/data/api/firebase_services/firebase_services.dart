@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crypto/crypto.dart';
 import 'dart:convert';
 
 import 'package:feature_first/data/api/firebase_collections/firebase_collections.dart';
 import 'package:feature_first/data/model/user/user.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class FirebaseServices {
 
@@ -66,6 +69,51 @@ class FirebaseServices {
     } catch (e) {
       print("Error during login: $e");
       return null; // Return null in case of an error
+    }
+  }
+
+
+  static Future<String?> uploadProfilePicture(File imageFile, String userId) async {
+    try {
+      // Create a reference to Firebase Storage with the user-specific path
+      Reference storageReference = FirebaseStorage.instance.ref().child("profile_pictures/$userId.jpg");
+
+      // Upload the file to Firebase Storage
+      UploadTask uploadTask = storageReference.putFile(imageFile);
+
+      // Wait for the upload to complete
+      TaskSnapshot taskSnapshot = await uploadTask;
+
+      // Get the download URL of the uploaded file
+      String downloadUrl = await taskSnapshot.ref.getDownloadURL();
+
+      // Return the download URL
+      return downloadUrl;
+    } catch (e) {
+      print('Error uploading profile picture: $e');
+      return null;
+    }
+  }
+
+
+
+  static Future<UserModel?> updateUserProfile({
+    required String userId,
+    required Map<String,dynamic> body
+  }) async {
+    try {
+      DocumentReference userDocRef = FirebaseCollections.users.doc(userId);
+      await userDocRef.update(body);
+      DocumentSnapshot snapshot = await userDocRef.get();
+      if(snapshot.exists){
+        print('User profile updated successfully');
+        return UserModel.fromJson(snapshot.data() as Map<String,dynamic>);
+      }else{
+        return null;
+      }
+    } catch (e) {
+      print('Error updating profile: $e');
+      return null;
     }
   }
 
