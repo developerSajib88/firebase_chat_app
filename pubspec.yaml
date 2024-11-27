@@ -1,4 +1,4 @@
-name: feature_first
+9name: feature_first
 description: "A new Flutter project."
 
 
@@ -72,6 +72,7 @@ dependencies:
 
   # Pick Image
   image_picker: ^1.1.2
+
 
 
 
