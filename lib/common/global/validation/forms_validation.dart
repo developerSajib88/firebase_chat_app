@@ -5,6 +5,7 @@ class FormValidation {
   final String? formValue;
   FormValidation({required this.validationType, required this.formValue});
 
+  
   String? validate() {
     switch (validationType) {
       case ValidationType.name:
