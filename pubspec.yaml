@@ -73,7 +73,6 @@ dependencies:
   # Pick Image
   image_picker: ^1.1.2
   
-  
 
 
 dev_dependencies:
